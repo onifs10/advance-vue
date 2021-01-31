@@ -1,5 +1,18 @@
 <script>
 function convert (obj) {
   // Implement this!
+  for(propName in obj){
+    let realValue = obj[propName];
+    Object.defineProperty(obj, propName, {
+      get (){
+        console.log(`getting key "${propName}": ${realValue}`);
+        return realValue;
+      },
+      set(newValue){
+        console.log(`setting key "${propName}" to: ${newValue}`)
+        realValue = newValue
+      } 
+    });
+  }
 }
 </script>

@@ -2,8 +2,31 @@
 
 <script>
 const RulesPlugin = {
-  // Implement this!
+  install(Vue){
+    Vue.mixin({
+      created() {
+        if(this.$option.rules){
+            Object.keys(this.$option.rules).forEach( key => {
+              let {validate,message} = this.$option.rules[key];
+                  
+              }
+           )
+        }
+      }
+    })
+  }
 }
 
-Vue.use(RulesPlugin)
+Vue.use(RulesPlugin);
+const vm = new Vue({
+  data: { foo: 10 },
+  rules: {
+    foo: {
+      validate: value => value > 1,
+      message: 'foo must be greater than one'
+    }
+  }
+})
+
+vm.foo = 0 
 </script>

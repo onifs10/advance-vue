@@ -1,9 +1,45 @@
 <script>
 function observe (obj) {
+  let dep = new window.Dep();
+  for(propName in obj){
+    let realValue = obj[propName];
+    Object.defineProperty(obj, propName, {
+      get (){
+        dep.depend();
+        return realValue;
+      },
+      set(newValue){
+        realValue = newValue;
+        dep.notify();
+      } 
+    });
+  }
+}
+window.Dep = class Dep {
   // Implement this!
+    constructor(){
+      this.subscribers =  new Set();
+  }
+
+  depend() {
+    if(activeUpdate){
+        this.subscribers.add(activeUpdate);
+    }
+  }
+
+  notify(){
+      //run all cub 
+      this.subscribers.forEach(sub => sub());
+  }
 }
 
+let activeUpdate;
 function autorun (update) {
-  // Implement this!
+  function wrappedUpdate (){
+    activeUpdate =  wrappedUpdate;        
+    update()
+    activeUpdate = null;
+  }
+  wrappedUpdate();
 }
 </script>
