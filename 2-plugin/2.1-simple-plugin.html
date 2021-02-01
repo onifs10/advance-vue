@@ -5,13 +5,14 @@ const RulesPlugin = {
   install(Vue){
     Vue.mixin({
       created() {
-        const rules = this.$option.rules 
+        const rules = this.$options.rules 
         if(rules){
             Object.keys(rules).forEach( key => {
               let {validate,message} = rules[key];
               this.$watch(key,newValue => {
                 if(!validate(newValue)){
                   console.log(message);
+                  console.log(this.$options)
                 }
               })   
               }
