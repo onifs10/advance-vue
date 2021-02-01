@@ -10,7 +10,7 @@ const RulesPlugin = {
             Object.keys(rules).forEach( key => {
               let {validate,message} = rules[key];
               this.$watch(key,newValue => {
-                if(!validate(newValue)){
+                if(!validate(newValue)){ 
                   console.log(message);
                   console.log(this.$options)
                 }
